@@ -1,0 +1,3 @@
+class MethodCreatorCaller
+end
+
