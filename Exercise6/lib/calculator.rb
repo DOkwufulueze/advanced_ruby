@@ -9,3 +9,4 @@ class Calculator
     end
   end
 end
+
