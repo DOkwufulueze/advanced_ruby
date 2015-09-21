@@ -1,0 +1,3 @@
+class MethodCreator
+end
+
