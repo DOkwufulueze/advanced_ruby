@@ -19,18 +19,11 @@ class CSVClass
     @class_name = file_name.gsub('.csv', '').capitalize
     @file_content = CSV.read("#{@file_path}", headers: true)
     @csv_file_class = create_class
-    extract_method_names
     create_objects
   end
 
   def create_class
     Object.const_set(@class_name, Class.new)
-  end
-
-  def extract_method_names
-    @file_content[0].each do |key, value|
-      @method_names_array << key
-    end
   end
 
   def create_objects
