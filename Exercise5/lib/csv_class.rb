@@ -1,20 +1,26 @@
 require 'csv'
 class CSVClass
+  attr_accessor :objects_array
 
   def initialize(file_name)
-    file_path = File.expand_path("../#{file_name}", __FILE__)
+    @file_path = File.expand_path("../#{file_name}", __FILE__)
     if file_name == ""
       raise ":::Please specify a file name"
-    elsif !File.exist?(file_path)
+    elsif !File.exist?(@file_path)
       raise ":::The file #{file_name} does not exist"
     else
-      @method_names_array = []
-      @class_name = file_name.gsub('.csv', '').capitalize
-      @row_objects_array = CSV.read("#{file_path}", headers: true)
-      @csv_file_class = create_class
-      extract_method_names
-      create_methods
+      manipulate_csv_file(file_name)
     end   
+  end
+
+  def manipulate_csv_file(file_name)
+    @method_names_array = []
+    @objects_array = []
+    @class_name = file_name.gsub('.csv', '').capitalize
+    @file_content = CSV.read("#{@file_path}", headers: true)
+    @csv_file_class = create_class
+    extract_method_names
+    create_objects
   end
 
   def create_class
@@ -22,19 +28,25 @@ class CSVClass
   end
 
   def extract_method_names
-    @row_objects_array[0].each do |key, value|
+    @file_content[0].each do |key, value|
       @method_names_array << key
     end
   end
 
+  def create_objects
+    @file_content.each do |item|
+      if item.length > 0
+        object = @csv_file_class.new
+        object.instance_eval ("def item; puts #{item}; end")
+        item.each do |key, value|
+          object.instance_eval ("def #{key}; puts '#{value}'; end")
+        end
 
-  def create_methods 
-    puts "\nclass #{@class_name}"
-    @method_names_array.each do  |method| 
-      @csv_file_class.class_eval("def #{method}; end")
-      puts "\n\tdef #{method}\n\n\tend\n\n"
+        @objects_array << object
+      end
     end
-    puts "end\n"
   end
+
+  @objects_array
 end
 
