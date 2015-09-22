@@ -6,8 +6,6 @@ class ShoppingList
   def items(&block)
     if block_given?
       instance_eval(&block)
-    else
-      puts ":::Please supply a block"
     end
 
     showList
@@ -20,10 +18,15 @@ class ShoppingList
   end
 
   def showList
-    puts "Shopping List\nItem\t\t\t Quantity\n"
-    @hash.each do |key, value|
-      puts "#{key}\t\t\t#{value}"
+    if @hash.size > 0
+      puts "Shopping List\nItem\t\t\t Quantity\n"
+      @hash.each do |key, value|
+        puts "#{key}\t\t\t#{value}"
+      end
+    else
+      puts ":::Shopping List is empty"
     end
+    
   end
 end
 
