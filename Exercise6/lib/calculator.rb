@@ -1,4 +1,4 @@
-class Calculator
+module Calculator
   def evaluate(expression)
     expression.gsub!(/\d+(\.\d+)?/) { |matched| matched.to_f }
 
