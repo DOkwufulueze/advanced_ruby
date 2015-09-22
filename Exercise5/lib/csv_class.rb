@@ -1,6 +1,6 @@
 require 'csv'
 class CSVClass
-  attr_accessor :objects_array
+  attr_accessor :objects_array, :csv_file_class
 
   def initialize(file_name)
     @file_path = File.expand_path("../#{file_name}", __FILE__)
@@ -37,7 +37,7 @@ class CSVClass
     @file_content.each do |item|
       if item.length > 0
         object = @csv_file_class.new
-        object.instance_eval ("def item; puts #{item}; end")
+        object.instance_eval ("def item; puts '#{item}'; end")
         item.each do |key, value|
           object.instance_eval ("def #{key}; puts '#{value}'; end")
         end
@@ -45,8 +45,8 @@ class CSVClass
         @objects_array << object
       end
     end
-  end
 
-  @objects_array
+    @objects_array
+  end
 end
 
