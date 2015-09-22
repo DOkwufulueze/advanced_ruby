@@ -30,7 +30,7 @@ class CSVClass
     @file_content.each do |item|
       if item.length > 0
         object = @csv_file_class.new
-        object.instance_eval ("def item; puts '#{item}'; end")
+        object.instance_eval ("def to_s; puts '#{item}'; end")
         item.each do |key, value|
           object.instance_eval ("def #{key}; puts '#{value}'; end")
         end
