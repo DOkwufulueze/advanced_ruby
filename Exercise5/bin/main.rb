@@ -5,7 +5,7 @@ file_name = gets.chomp
 csv_manipulator = CSVClass.new(file_name)
 objects = csv_manipulator.objects_array
 csv_file_class = csv_manipulator.csv_file_class
-puts "Class: Name- #{csv_file_class}, Variable Name- csv_file_class\nObjects: Structure- #{objects}, Variable Name- objects\n\n:::Use the objects as you may wish to access the CSV file\n"
+puts "Class: Name- #{csv_file_class}, Variable Name- csv_file_class\nObjects: Structure- #{objects}, Variable Name- objects\n\n:::Use the objects as you may wish to access the CSV file\nType q to exit\n"
 
 binding_object = binding
 input = gets
